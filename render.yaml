@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: proyecto-logistica-backend
+    runtime: node
+    plan: free
+    rootDir: backend
+    buildCommand: npm install && npx prisma migrate deploy
+    startCommand: node prisma/seed.js && node src/index.js
+    envVars:
+      - key: DATABASE_URL
+        value: file:./dev.db
+      - key: NODE_VERSION
+        value: 22.14.0

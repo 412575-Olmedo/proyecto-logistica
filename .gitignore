@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.env
+!.env.example
+
+# SQLite dev database (se recrea con migraciones + seed)
+backend/prisma/dev.db
+backend/prisma/dev.db-journal
+
+# Prisma client generado (opcional, se regenera en cada install)
+backend/generated/
