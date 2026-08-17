@@ -5,7 +5,15 @@ async function request(path, options) {
     headers: { "Content-Type": "application/json" },
     ...options,
   });
-  const data = await res.json().catch(() => null);
+
+  const contentType = res.headers.get("content-type") || "";
+  if (!contentType.includes("application/json")) {
+    throw new Error(
+      `El servidor respondió algo inesperado (no JSON) en ${path}. ¿Está bien configurada la URL del backend (VITE_API_URL)?`
+    );
+  }
+
+  const data = await res.json();
   if (!res.ok) {
     throw new Error(data?.error || "Error inesperado del servidor");
   }
